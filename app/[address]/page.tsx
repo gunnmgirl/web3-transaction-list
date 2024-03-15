@@ -69,7 +69,7 @@ const Page = async ({
         <Balance address={address} />
       </Suspense>
       <Suspense fallback={<Loading />}>
-        <Transactions transactions={{ ethereum, polygon }} />
+        <Transactions address={address} transactions={{ ethereum, polygon }} />
       </Suspense>
       <div>
         <Pagination />

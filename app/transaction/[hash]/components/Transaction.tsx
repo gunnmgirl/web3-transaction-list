@@ -7,13 +7,13 @@ import NetworkInput from "@/app/components/NetworkInput";
 import TransactionDetails from "./TransactionDetails";
 
 import { NETWORKS } from "@/app/constants";
-import { Transactions } from "@/app/types";
+import { TransactionDetails as TransactionDetailsType } from "@/app/types";
 
 const Transaction = ({
   transaction,
   hash,
 }: {
-  transaction: Transactions;
+  transaction: TransactionDetailsType;
   hash: string;
 }) => {
   const [network, setNetwork] = useState(NETWORKS.ethereum.name);

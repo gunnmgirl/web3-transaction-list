@@ -41,6 +41,10 @@ export type ProxyTransaction = {
   status?: string;
 };
 
-export type Transactions = {
+export type TransactionDetails = {
   [key: string]: ProxyTransaction;
+};
+
+export type Transactions = {
+  [key: string]: Transaction[];
 };

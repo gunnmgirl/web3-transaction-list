@@ -2,23 +2,24 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import Input from "@/app/components/Input";
 
-const TransactionForm = ({ hash }: { hash: string }) => {
-  const [transactionValue, setTransactionValue] = useState(hash);
+const AddressForm = ({ address }: { address: string }) => {
+  const [addressValue, setAddressValue] = useState(address);
 
   const { push } = useRouter();
 
   const updateParams = () => {
-    push(transactionValue);
+    push(addressValue);
   };
 
   return (
     <div>
       <Input
         label="Transaction"
-        value={transactionValue}
-        setValue={setTransactionValue}
+        value={addressValue}
+        setValue={setAddressValue}
       />
       <button
         onClick={updateParams}
@@ -30,4 +31,4 @@ const TransactionForm = ({ hash }: { hash: string }) => {
   );
 };
 
-export default TransactionForm;
+export default AddressForm;
