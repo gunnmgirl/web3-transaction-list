@@ -84,7 +84,7 @@ const Table = ({
                 <th
                   key={header.id}
                   colSpan={header.colSpan}
-                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semiboldsm:pl-0"
                 >
                   {header.isPlaceholder ? null : (
                     <div
@@ -125,7 +125,7 @@ const Table = ({
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                  className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium  sm:pl-0"
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>

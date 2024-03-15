@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Input from "app/components/Input";
+import { Button } from "app/components/Button";
 
 const AddressForm = ({ address }: { address: string }) => {
   const [addressValue, setAddressValue] = useState(address);
@@ -13,15 +14,16 @@ const AddressForm = ({ address }: { address: string }) => {
   };
 
   return (
-    <div className="flex flex-row my-4 justify-center">
-      <Input label="" value={addressValue} setValue={setAddressValue} />
-      <button
-        onClick={updateParams}
-        className="py-1 px-4 rounded-r-lg bg-gray-200"
-      >
-        Go
-      </button>
-    </div>
+    <form className="mt-6 mb-2 flex items-end justify-center">
+      <Input
+        label="Address"
+        value={addressValue}
+        onChange={(event) => setAddressValue(event.target.value)}
+      />
+      <Button className="ml-2" onClick={updateParams}>
+        Search
+      </Button>
+    </form>
   );
 };
 

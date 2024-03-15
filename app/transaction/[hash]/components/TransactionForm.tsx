@@ -17,7 +17,7 @@ const TransactionForm = ({ hash }: { hash: string }) => {
       <Input
         label="Transaction"
         value={transactionValue}
-        setValue={setTransactionValue}
+        onChange={(event) => setTransactionValue(event.target.value)}
       />
       <button
         onClick={updateParams}

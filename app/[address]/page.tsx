@@ -1,7 +1,5 @@
-import { Suspense } from "react";
 import Pagination from "app/[address]/components/Pagination";
 import Transactions from "app/[address]/components/Transactions";
-import Loading from "app/components/Loading";
 import Balance from "app/[address]/components/Balance";
 import { getNetworkApiParams } from "app/helpers";
 import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "app/constants";
@@ -62,17 +60,12 @@ const Page = async ({
 
   return (
     <div className="h-lvh">
-      <h1 className="text-center">Transactions</h1>
+      <h1 className="text-center text-lg">Transactions</h1>
       <div>
-        <Suspense fallback={<Loading />}>
+        {/* <Suspense fallback={<Loading />}>
           <Balance address={address} />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <Transactions
-            address={address}
-            transactions={{ ethereum, polygon }}
-          />
-        </Suspense>
+        </Suspense> */}
+        <Transactions address={address} transactions={{ ethereum, polygon }} />
       </div>
       <div>
         <Pagination />
