@@ -20,7 +20,6 @@ const Transactions = ({
 
   return (
     <div>
-      <h1>Transactions</h1>
       <AddressForm address={address} />
       <NetworkInput value={network} setValue={setNetwork} />
       <Table transactions={transactions[network]} network={network} />

@@ -63,14 +63,19 @@ const Page = async ({
   );
 
   return (
-    <div>
-      <h1>Transactions</h1>
-      <Suspense fallback={<Loading />}>
-        <Balance address={address} />
-      </Suspense>
-      <Suspense fallback={<Loading />}>
-        <Transactions address={address} transactions={{ ethereum, polygon }} />
-      </Suspense>
+    <div className="h-lvh">
+      <h1 className="text-center">Transactions</h1>
+      <div>
+        <Suspense fallback={<Loading />}>
+          <Balance address={address} />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <Transactions
+            address={address}
+            transactions={{ ethereum, polygon }}
+          />
+        </Suspense>
+      </div>
       <div>
         <Pagination />
       </div>

@@ -14,10 +14,10 @@ const Input = ({
   };
 
   return (
-    <div>
+    <div className="flex flex-col">
       <label htmlFor={label}>{label}</label>
       <input
-        className="ml-2 border-2"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg outline-none focus:border-gray-400 block w-full p-2.5"
         name={label}
         value={value}
         onChange={(event) => updateValue(event?.target?.value)}

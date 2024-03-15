@@ -77,21 +77,24 @@ const Table = ({
   });
 
   return (
-    <div>
-      <h1>Table</h1>
-      <table>
+    <div className="size-full">
+      <table className="min-w-full divide-y divide-gray-300">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} colSpan={header.colSpan}>
+                <th
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                >
                   {header.isPlaceholder ? null : (
                     <div
-                      className={
+                      className={`${
                         header.column.getCanSort()
                           ? "cursor-pointer select-none"
                           : ""
-                      }
+                      }`}
                       onClick={header.column.getToggleSortingHandler()}
                       title={
                         header.column.getCanSort()
@@ -118,11 +121,14 @@ const Table = ({
             </tr>
           ))}
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-gray-200">
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className="border-solid border-2 border-gray-200">
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td
+                  key={cell.id}
+                  className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
