@@ -4,7 +4,7 @@ import TransactionDetails from "./components/TransactionDetails";
 import TransactionForm from "./components/TransactionForm";
 import Loading from "@/app/components/Loading";
 
-import { NETWORKS } from "@/app/constants/constants";
+import { NETWORKS } from "@/app/constants";
 
 const Page = ({
   searchParams = {

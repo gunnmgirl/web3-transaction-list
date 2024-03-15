@@ -1,5 +1,5 @@
-import { NETWORKS } from "@/app/constants/constants";
-import { getNetworkApiParams } from "@/app/helpers/helpers";
+import { NETWORKS } from "@/app/constants";
+import { getNetworkApiParams } from "@/app/helpers";
 
 async function getData(address: string, network: string) {
   try {

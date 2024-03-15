@@ -1,6 +1,6 @@
 "use client";
 
-import { NETWORKS } from "@/app/constants/constants";
+import { NETWORKS } from "@/app/constants";
 
 const NetworkInput = ({
   value,

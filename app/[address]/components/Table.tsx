@@ -10,7 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { NETWORKS } from "@/app/constants/constants";
+import { NETWORKS } from "@/app/constants";
 import { Transaction } from "@/app/types";
 
 const columnHelper = createColumnHelper<Transaction>();

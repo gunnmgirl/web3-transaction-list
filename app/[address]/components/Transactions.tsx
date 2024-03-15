@@ -7,7 +7,7 @@ import {
   NETWORKS,
   POLYGONSCAN_BASE_URL,
   POLYGON_SAMPLE_ADDRESS,
-} from "@/app/constants/constants";
+} from "@/app/constants";
 
 const getNetworkApiParams = (network: string) => {
   switch (network) {

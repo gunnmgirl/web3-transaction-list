@@ -1,4 +1,4 @@
-import { getNetworkApiParams } from "@/app/helpers/helpers";
+import { getNetworkApiParams } from "@/app/helpers";
 import { ProxyTransaction } from "@/app/types";
 
 const getTransactionInfo = (transaction: ProxyTransaction) => {

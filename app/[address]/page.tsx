@@ -6,7 +6,7 @@ import Loading from "../components/Loading";
 import AddressForm from "./components/AddressForm";
 import Balance from "./components/Balance";
 
-import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "../constants/constants";
+import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "../constants";
 
 const Page = ({
   searchParams = { network: NETWORKS.ethereum.name, page: "1" },
