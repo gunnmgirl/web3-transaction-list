@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "./constants";
+import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "app/constants";
 
 const Page = () =>
   redirect(

@@ -1,4 +1,4 @@
-import { ProxyTransaction } from "@/app/types";
+import { ProxyTransaction } from "app/types";
 
 const getTransactionInfo = (transaction: ProxyTransaction) => {
   const amountInWei = Number(transaction?.value);

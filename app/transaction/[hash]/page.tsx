@@ -1,8 +1,7 @@
-import Transaction from "./components/Transaction";
-
-import { getNetworkApiParams } from "@/app/helpers";
-import { NETWORKS } from "@/app/constants";
-import { ProxyTransaction } from "@/app/types";
+import Transaction from "app/transaction/[hash]/components/Transaction";
+import { getNetworkApiParams } from "app/helpers";
+import { NETWORKS } from "app/constants";
+import { ProxyTransaction } from "app/types";
 
 const getData = async (transaction: string, network: string) => {
   try {

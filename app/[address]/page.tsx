@@ -1,13 +1,11 @@
 import { Suspense } from "react";
-
-import Pagination from "./components/Pagination";
-import Transactions from "./components/Transactions";
-import Loading from "../components/Loading";
-import Balance from "./components/Balance";
-
-import { getNetworkApiParams } from "../helpers";
-import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "../constants";
-import { Transaction } from "../types";
+import Pagination from "app/[address]/components/Pagination";
+import Transactions from "app/[address]/components/Transactions";
+import Loading from "app/components/Loading";
+import Balance from "app/[address]/components/Balance";
+import { getNetworkApiParams } from "app/helpers";
+import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "app/constants";
+import { Transaction } from "app/types";
 
 const getApiUrl = (address: string, network: string, page: string | number) => {
   const { apiBaseUrl, apiKey, sampleAddress } = getNetworkApiParams(network);

@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import Link from "next/link";
 import {
@@ -9,9 +8,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
-import { NETWORKS } from "@/app/constants";
-import { Transaction } from "@/app/types";
+import { NETWORKS } from "app/constants";
+import { Transaction } from "app/types";
 
 const columnHelper = createColumnHelper<Transaction>();
 

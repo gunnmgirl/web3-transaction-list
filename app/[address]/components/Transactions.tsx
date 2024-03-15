@@ -1,13 +1,10 @@
 "use client";
-
 import { useState } from "react";
-
-import Table from "./Table";
-
-import { Transactions as TransactionsType } from "@/app/types";
-import { NETWORKS } from "@/app/constants";
-import NetworkInput from "@/app/components/NetworkInput";
-import AddressForm from "./AddressForm";
+import Table from "app/[address]/components/Table";
+import { Transactions as TransactionsType } from "app/types";
+import NetworkInput from "app/components/NetworkInput";
+import AddressForm from "app/[address]/components/AddressForm";
+import { NETWORKS } from "app/constants";
 
 const Transactions = ({
   transactions,

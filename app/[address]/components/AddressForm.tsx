@@ -1,9 +1,7 @@
 "use client";
-
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-
-import Input from "@/app/components/Input";
+import Input from "app/components/Input";
 
 const AddressForm = ({ address }: { address: string }) => {
   const [addressValue, setAddressValue] = useState(address);

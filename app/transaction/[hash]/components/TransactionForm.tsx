@@ -1,8 +1,7 @@
 "use client";
-
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Input from "@/app/components/Input";
+import Input from "app/components/Input";
 
 const TransactionForm = ({ hash }: { hash: string }) => {
   const [transactionValue, setTransactionValue] = useState(hash);
