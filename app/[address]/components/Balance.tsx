@@ -11,7 +11,7 @@ async function getData(address: string, network: string) {
     );
 
     if (!res.ok) {
-      throw new Error("Failed to fetch data");
+      console.error("Error on fetch current balance", res);
     }
 
     const data = await res.json();
@@ -23,23 +23,20 @@ async function getData(address: string, network: string) {
 
     return `${balanceValue} ${NETWORKS[network].currency}`;
   } catch (error) {
+    console.error("Error on fetch current balance", error);
     return "";
   }
 }
 
-const Balance = async ({
-  address,
-  network,
-}: {
-  address: string;
-  network: string;
-}) => {
-  const balance = await getData(address, network);
+const Balance = async ({ address }: { address: string }) => {
+  const balanceEtf = await getData(address, NETWORKS.ethereum.name);
+  const balanceMatic = await getData(address, NETWORKS.polygon.name);
 
   return (
     <div>
       <h1>Balance</h1>
-      <span>{balance}</span>
+      <p>{balanceEtf}</p>
+      <p>{balanceMatic}</p>
     </div>
   );
 };
