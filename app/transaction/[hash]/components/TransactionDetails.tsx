@@ -1,16 +1,15 @@
-import { getNetworkApiParams } from "@/app/helpers";
 import { ProxyTransaction } from "@/app/types";
 
 const getTransactionInfo = (transaction: ProxyTransaction) => {
-  const amountInWei = Number(transaction.value);
+  const amountInWei = Number(transaction?.value);
   const amount = amountInWei / Math.pow(10, 18);
 
-  const milliseconds = Number(transaction.timestamp) * 1000;
+  const milliseconds = Number(transaction?.timestamp) * 1000;
   const dateTime = new Date(milliseconds);
-  const localDateTime = dateTime.toLocaleString();
+  const localDateTime = dateTime?.toLocaleString();
 
-  const gas = parseInt(transaction.gas, 16);
-  const gasPrice = parseInt(transaction.gasPrice, 16);
+  const gas = parseInt(transaction?.gas, 16);
+  const gasPrice = parseInt(transaction?.gasPrice, 16);
   const transactionFee = (gas * gasPrice) / Math.pow(10, 18);
 
   const status =
@@ -23,50 +22,12 @@ const getTransactionInfo = (transaction: ProxyTransaction) => {
   return { status, transactionFee, localDateTime, amount };
 };
 
-const getData = async (transaction: string, network: string) => {
-  try {
-    const { apiBaseUrl, apiKey, sampleTransaction } =
-      getNetworkApiParams(network);
-    const transactionParam = transaction || sampleTransaction;
-
-    const resTransaction = await fetch(
-      `${apiBaseUrl}?module=proxy&action=eth_getTransactionByHash&txhash=${transactionParam}&apikey=${apiKey}`
-    );
-    const dataTransaction = await resTransaction.json();
-    const { blockNumber } = dataTransaction.result;
-
-    const resBlock = await fetch(
-      `${apiBaseUrl}?module=proxy&action=eth_getBlockByNumber&tag=${blockNumber}&boolean=true&apikey=${apiKey}`
-    );
-    const dataBlock = (await resBlock.json()) || {};
-
-    const resStatus = await fetch(
-      `${apiBaseUrl}?module=transaction&action=gettxreceiptstatus&txhash=${transactionParam}&apikey=${apiKey}`
-    );
-    const dataStatus = (await resStatus.json()) || {};
-
-    if (!resTransaction.ok) {
-      return {};
-    }
-
-    const { timestamp } = dataBlock?.result || {};
-    const { status } = dataStatus?.result || {};
-
-    return { ...dataTransaction.result, timestamp, status };
-  } catch (error) {
-    return {};
-  }
-};
-
-const TransactionDetails = async ({
+const TransactionDetails = ({
   transaction,
-  network,
 }: {
-  transaction: string;
-  network: string;
+  transaction: ProxyTransaction;
 }) => {
-  const data: ProxyTransaction = await getData(transaction, network);
-  const transactionInfo = getTransactionInfo(data);
+  const transactionInfo = getTransactionInfo(transaction);
   return (
     <div>
       {`Amount: ${transactionInfo.amount}, Date and Time: ${transactionInfo.localDateTime}, Transaction fee: ${transactionInfo.transactionFee}, Status: ${transactionInfo.status}`}

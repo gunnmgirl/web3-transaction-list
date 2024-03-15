@@ -40,3 +40,7 @@ export type ProxyTransaction = {
   timestamp: string;
   status?: string;
 };
+
+export type Transactions = {
+  [key: string]: ProxyTransaction;
+};

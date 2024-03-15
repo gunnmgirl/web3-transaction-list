@@ -1,28 +1,16 @@
 "use client";
+
 import React, { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-
+import { useRouter } from "next/navigation";
 import Input from "@/app/components/Input";
-import NetworkInput from "@/app/components/NetworkInput";
 
-const TransactionForm = ({
-  transaction,
-  network,
-}: {
-  transaction: string;
-  network: string;
-}) => {
-  const [transactionValue, setTransactionValue] = useState(transaction);
-  const [networkValue, setNetworkValue] = useState(network);
+const TransactionForm = ({ hash }: { hash: string }) => {
+  const [transactionValue, setTransactionValue] = useState(hash);
 
-  const searchParams = useSearchParams();
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   const updateParams = () => {
-    const params = new URLSearchParams(searchParams);
-    params.set("network", networkValue);
-
-    replace(`${transactionValue}?${params.toString()}`);
+    push(`${transactionValue}`);
   };
 
   return (
@@ -32,7 +20,6 @@ const TransactionForm = ({
         value={transactionValue}
         setValue={setTransactionValue}
       />
-      <NetworkInput value={networkValue} setValue={setNetworkValue} />
       <button
         onClick={updateParams}
         className="py-1 px-2 rounded-sm bg-gray-200"
