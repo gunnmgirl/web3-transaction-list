@@ -1,11 +1,10 @@
+import { Address } from "viem";
 import Pagination from "app/[address]/components/Pagination";
 import Transactions from "app/[address]/components/Transactions";
-import Balance from "app/[address]/components/Balance";
+import Header from "app/components/Header";
 import { getNetworkApiParams } from "app/helpers";
 import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "app/constants";
 import { Transaction } from "app/types";
-import { Address } from "viem";
-import AddressForm from "app/[address]/components/AddressForm";
 
 const getApiUrl = (address: string, network: string, page: string | number) => {
   const { apiBaseUrl, apiKey, sampleAddress } = getNetworkApiParams(network);
@@ -62,14 +61,9 @@ const Page = async ({
 
   return (
     <div className="h-lvh">
-      <header className="flex justify-between p-2">
-        <Balance address={address} />
-        <AddressForm address={address} />
-      </header>
+      <Header />
       <Transactions transactions={{ ethereum, polygon }} />
-      <div>
-        <Pagination />
-      </div>
+      <Pagination />
     </div>
   );
 };

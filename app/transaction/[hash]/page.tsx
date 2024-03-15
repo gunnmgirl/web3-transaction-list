@@ -1,57 +1,68 @@
-import Transaction from "app/transaction/[hash]/components/Transaction";
-import { getNetworkApiParams } from "app/helpers";
-import { NETWORKS } from "app/constants";
-import { ProxyTransaction } from "app/types";
+"use client";
+import { Hash } from "viem";
+import { useBlock, useTransaction, useTransactionReceipt } from "wagmi";
+import Header from "app/components/Header";
+import { Divider } from "app/components/Divider";
 
-const getData = async (transaction: string, network: string) => {
-  try {
-    const { apiBaseUrl, apiKey, sampleTransaction } =
-      getNetworkApiParams(network);
-    const transactionParam = transaction || sampleTransaction;
+const Page = ({ params }: { params: { hash: Hash } }) => {
+  const transaction = useTransaction({
+    hash: params.hash,
+  });
 
-    const resTransaction = await fetch(
-      `${apiBaseUrl}?module=proxy&action=eth_getTransactionByHash&txhash=${transactionParam}&apikey=${apiKey}`
-    );
-    const dataTransaction = await resTransaction.json();
-    const { blockNumber } = dataTransaction.result;
+  const receipt = useTransactionReceipt({
+    hash: params.hash,
+  });
 
-    const resBlock = await fetch(
-      `${apiBaseUrl}?module=proxy&action=eth_getBlockByNumber&tag=${blockNumber}&boolean=true&apikey=${apiKey}`
-    );
-    const dataBlock = (await resBlock.json()) || {};
-
-    const resStatus = await fetch(
-      `${apiBaseUrl}?module=transaction&action=gettxreceiptstatus&txhash=${transactionParam}&apikey=${apiKey}`
-    );
-    const dataStatus = (await resStatus.json()) || {};
-
-    if (!resTransaction.ok) {
-      return {};
-    }
-
-    const { timestamp } = dataBlock?.result || {};
-    const { status } = dataStatus?.result || {};
-
-    return { ...dataTransaction.result, timestamp, status };
-  } catch (error) {
-    return {};
-  }
-};
-
-const Page = async ({ params }: { params: { hash: string } }) => {
-  const ethereum: ProxyTransaction = await getData(
-    params.hash,
-    NETWORKS.ethereum.name
-  );
-  const polygon: ProxyTransaction = await getData(
-    params.hash,
-    NETWORKS.polygon.name
-  );
+  const block = useBlock({ blockHash: transaction.data?.blockHash });
 
   return (
     <div>
-      <h1>Transaction</h1>
-      <Transaction transaction={{ ethereum, polygon }} hash={params.hash} />
+      <Header />
+      <div className="p-2">
+        <h1 className="text-lg">Transaction Details</h1>
+        <div className="grid grid-cols-[200px_1fr]">
+          <div>
+            <p>Hash:</p>
+            <p>Status:</p>
+            <p>Block:</p>
+            <p>Timestamp</p>
+          </div>
+          <div>
+            <p>{transaction.data?.hash}</p>
+            {receipt.data?.status === "success" ? (
+              <p className="text-[#39FF14]">Success</p>
+            ) : (
+              <p>Reverted</p>
+            )}
+            <p>{block.data?.number.toString()}</p>
+            <p>{block.data?.timestamp.toString()}</p>
+          </div>
+        </div>
+        <Divider className="my-4" />
+        <div className="grid grid-cols-[200px_1fr]">
+          <div>
+            <p>From</p>
+            <p>To</p>
+          </div>
+          <div>
+            <p>{transaction.data?.from}</p>
+            <p>{transaction.data?.to}</p>
+          </div>
+        </div>
+        <Divider className="my-4" />
+        <div className="grid grid-cols-[200px_1fr]">
+          <div>
+            <p>Value</p>
+            <p>Transaction Fee</p>
+            <p>Gas Price</p>
+          </div>
+          <div>
+            <p>{transaction.data?.value.toString()}</p>
+            <p>{transaction.data?.gas.toString()}</p>
+            <p>{transaction.data?.gasPrice?.toString()}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
