@@ -4,6 +4,8 @@ import Balance from "app/[address]/components/Balance";
 import { getNetworkApiParams } from "app/helpers";
 import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "app/constants";
 import { Transaction } from "app/types";
+import { Address } from "viem";
+import AddressForm from "app/[address]/components/AddressForm";
 
 const getApiUrl = (address: string, network: string, page: string | number) => {
   const { apiBaseUrl, apiKey, sampleAddress } = getNetworkApiParams(network);
@@ -42,7 +44,7 @@ const Page = async ({
   searchParams: {
     page: string;
   };
-  params: { address: string };
+  params: { address: Address };
 }) => {
   const page = searchParams.page;
   const address = params?.address || ETHEREUM_SAMPLE_ADDRESS;
@@ -60,13 +62,11 @@ const Page = async ({
 
   return (
     <div className="h-lvh">
-      <h1 className="text-center text-lg">Transactions</h1>
-      <div>
-        {/* <Suspense fallback={<Loading />}>
-          <Balance address={address} />
-        </Suspense> */}
-        <Transactions address={address} transactions={{ ethereum, polygon }} />
-      </div>
+      <header className="flex justify-between p-2">
+        <Balance address={address} />
+        <AddressForm address={address} />
+      </header>
+      <Transactions transactions={{ ethereum, polygon }} />
       <div>
         <Pagination />
       </div>

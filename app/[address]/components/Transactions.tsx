@@ -2,22 +2,14 @@
 import { useState } from "react";
 import Table from "app/[address]/components/Table";
 import { Transactions as TransactionsType } from "app/types";
-import AddressForm from "app/[address]/components/AddressForm";
 import { NETWORKS } from "app/constants";
 import { Button } from "app/components/Button";
 
-const Transactions = ({
-  transactions,
-  address,
-}: {
-  address: string;
-  transactions: TransactionsType;
-}) => {
+const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
   const [network, setNetwork] = useState(NETWORKS.ethereum.name);
 
   return (
-    <div>
-      <AddressForm address={address} />
+    <div className="p-2">
       <span className="isolate inline-flex">
         <Button
           onClick={() => setNetwork("ethereum")}

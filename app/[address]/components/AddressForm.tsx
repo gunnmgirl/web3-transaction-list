@@ -14,11 +14,12 @@ const AddressForm = ({ address }: { address: string }) => {
   };
 
   return (
-    <form className="mt-6 mb-2 flex items-end justify-center">
+    <form className="flex items-end justify-center">
       <Input
-        label="Address"
+        label=""
         value={addressValue}
         onChange={(event) => setAddressValue(event.target.value)}
+        placeholder="Search by address"
       />
       <Button className="ml-2" onClick={updateParams}>
         Search

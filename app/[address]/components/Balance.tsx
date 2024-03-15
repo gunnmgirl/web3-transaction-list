@@ -1,42 +1,25 @@
-import { NETWORKS } from "app/constants";
-import { getNetworkApiParams } from "app/helpers";
+"use client";
+import { Address, formatEther } from "viem";
+import { useBalance } from "wagmi";
+import BigNumber from "bignumber.js";
 
-async function getData(address: string, network: string) {
-  try {
-    const { apiBaseUrl, apiKey, sampleAddress } = getNetworkApiParams(network);
-    const addressParam = address || sampleAddress;
+const Balance = ({ address }: { address: Address }) => {
+  const result = useBalance({
+    address: address,
+  });
 
-    const res = await fetch(
-      `${apiBaseUrl}?module=account&action=balance&address=${addressParam}&tag=latest&apikey=${apiKey}`
-    );
-
-    if (!res.ok) {
-      console.error("Error on fetch current balance", res);
-    }
-
-    const data = await res.json();
-    if (data?.status === "0") {
-      return "";
-    }
-
-    const balanceValue = data.result / Math.pow(10, 18);
-
-    return `${balanceValue} ${NETWORKS[network].currency}`;
-  } catch (error) {
-    console.error("Error on fetch current balance", error);
-    return "";
-  }
-}
-
-const Balance = async ({ address }: { address: string }) => {
-  const balanceEtf = await getData(address, NETWORKS.ethereum.name);
-  const balanceMatic = await getData(address, NETWORKS.polygon.name);
+  const balanceEth = result.data?.value
+    ? new BigNumber(formatEther(result.data.value))
+    : 0;
 
   return (
     <div>
-      <h1>Balance</h1>
-      <p>{balanceEtf}</p>
-      <p>{balanceMatic}</p>
+      <span>Current Balance: </span>
+      <span className="text-[#00FFFF]">
+        {result.isLoading
+          ? "..."
+          : `${balanceEth.toFixed(6)} ${result.data?.symbol || ""}`}
+      </span>
     </div>
   );
 };
