@@ -62,11 +62,9 @@ const columns = [
 const Table = ({
   transactions,
   network,
-  address,
 }: {
   transactions: Transaction[];
   network: string;
-  address: string;
 }) => {
   const table = useReactTable({
     data: transactions,
@@ -75,7 +73,6 @@ const Table = ({
     getSortedRowModel: getSortedRowModel(),
     meta: {
       network,
-      address,
     },
   });
 
