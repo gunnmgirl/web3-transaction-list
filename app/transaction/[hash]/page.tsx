@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
-import TransactionDetails from "./components/TransactionDetailsTemp";
-import TransactionForm from "./components/TransactionFormTemp";
+import TransactionDetails from "./components/TransactionDetails";
+import TransactionForm from "./components/TransactionForm";
 import Loading from "@/app/components/Loading";
 
 import { NETWORKS } from "@/app/constants/constants";
