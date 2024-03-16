@@ -6,7 +6,11 @@ import { useBlock, useTransaction, useTransactionReceipt } from "wagmi";
 import { mainnet, polygon } from "wagmi/chains";
 import Header from "app/components/Header";
 import { Divider } from "app/components/Divider";
-import { NETWORKS } from "app/constants";
+import {
+  ETHERSCAN_BASE_URL,
+  NETWORKS,
+  POLYGONSCAN_BASE_URL,
+} from "app/constants";
 
 const Page = ({
   params,
@@ -15,11 +19,15 @@ const Page = ({
   params: { hash: Hash };
   searchParams: { network: string };
 }) => {
-  const linkColor = `text-[${NETWORKS[searchParams.network].color}]`;
+  const { network } = searchParams;
+  const linkColor = `text-[${NETWORKS[network].color}]`;
+  const baseUrl =
+    network === NETWORKS.ethereum.name
+      ? ETHERSCAN_BASE_URL
+      : POLYGONSCAN_BASE_URL;
   const bigIntZero = 0 as unknown as bigint;
-  const chainId =
-    searchParams.network === NETWORKS.ethereum.name ? mainnet.id : polygon.id;
-  const currency = NETWORKS[searchParams.network].currency;
+  const chainId = network === NETWORKS.ethereum.name ? mainnet.id : polygon.id;
+  const currency = NETWORKS[network].currency;
   const transaction = useTransaction({
     hash: params.hash,
     chainId,
@@ -53,7 +61,13 @@ const Page = ({
             <p>Timestamp</p>
           </div>
           <div>
-            <p>{transaction.data?.hash}</p>
+            <Link
+              href={`${baseUrl}/tx/${transaction.data?.hash}`}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {transaction.data?.hash}
+            </Link>
             {receipt.data?.status === "success" ? (
               <p className="text-[#39FF14]">Success</p>
             ) : (
