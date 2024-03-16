@@ -49,20 +49,20 @@ const Page = ({
       <Header />
       <div className="p-4">
         <h1 className="text-lg mb-2">Transaction Details</h1>
-        <div className="grid grid-cols-[200px,1fr]">
+        <div className="grid grid-cols-[1fr,1fr] sm:grid-cols-[200px,1fr]">
           <div>
             <p>Hash:</p>
             <p>Status:</p>
             <p>Block:</p>
             <p>Timestamp:</p>
           </div>
-          <div>
+          <div className="overflow-hidden">
             <Link
               href={`${baseUrl}/tx/${transaction.data?.hash}`}
               rel="noopener noreferrer"
               target="_blank"
             >
-              {transaction.data?.hash}
+              <p className="truncate">{transaction.data?.hash}</p>
             </Link>
             {receipt.data?.status === "success" ? (
               <p className="text-[#39FF14]">Success</p>
@@ -74,33 +74,35 @@ const Page = ({
           </div>
         </div>
         <Divider className="my-4" />
-        <div className="grid grid-cols-[200px,1fr]">
+        <div className="grid grid-cols-[1fr,1fr] sm:grid-cols-[200px,1fr]">
           <div>
             <p>From:</p>
             <p>To:</p>
           </div>
-          <div>
+          <div className="overflow-hidden">
             <Link href={`/${transaction.data?.from}`} className={linkColor}>
-              <p>{transaction.data?.from}</p>
+              <p className="truncate">{transaction.data?.hash}</p>
             </Link>
             <Link href={`/${transaction.data?.to}`} className={linkColor}>
-              <p>{transaction.data?.to}</p>
+              <p className="truncate">{transaction.data?.hash}</p>
             </Link>
           </div>
         </div>
         <Divider className="my-4" />
-        <div className="grid grid-cols-[200px,1fr]">
+        <div className="grid grid-cols-[1fr,1fr] sm:grid-cols-[200px,1fr]">
           <div>
             <p>Value:</p>
             <p>Transaction Fee:</p>
             <p>Gas Price:</p>
           </div>
-          <div>
+          <div className="overflow-hidden">
             <p>{`${value} ${currency}`}</p>
-            <p>{`${formatEther(
+            <p className="truncate">{`${formatEther(
               transactionFee as unknown as bigint
             )} ${currency}`}</p>
-            <p>{`${formatEther(gasPrice as unknown as bigint)} ${currency}`}</p>
+            <p className="truncate">{`${formatEther(
+              gasPrice as unknown as bigint
+            )} ${currency}`}</p>
           </div>
         </div>
       </div>
