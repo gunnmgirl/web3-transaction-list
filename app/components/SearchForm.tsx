@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Input from "app/components/Input";
 import { Button } from "app/components/Button";
+import SearchIcon from "app/icons/SearchIcon";
 
 const AddressForm = ({
   initialValue,
@@ -31,6 +32,7 @@ const AddressForm = ({
         value={value}
         onChange={(event) => setValue(event.target.value)}
         placeholder={placeholder}
+        rightSection={<SearchIcon />}
       />
       <Button type="submit" className="ml-2">
         Search

@@ -33,7 +33,10 @@ const Table = ({
         cell: (info) => {
           const value = info.getValue();
           return (
-            <Link className={linkColor} href={`/transaction/${value}`}>
+            <Link
+              className={linkColor}
+              href={`/transaction/${value}?network=${network}`}
+            >
               {formatHash(value)}
             </Link>
           );

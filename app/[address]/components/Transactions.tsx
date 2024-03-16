@@ -4,6 +4,8 @@ import Table from "app/[address]/components/Table";
 import { Transactions as TransactionsType } from "app/types";
 import { NETWORKS } from "app/constants";
 import { Button } from "app/components/Button";
+import EthereumIcon from "app/icons/EthereumIcon";
+import PolygonIcon from "app/icons/PolygonIcon";
 
 const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
   const [network, setNetwork] = useState(NETWORKS.ethereum.name);
@@ -16,6 +18,7 @@ const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
           isActive={network === "ethereum"}
           className="rounded-none rounded-l-md"
         >
+          <EthereumIcon />
           Ethereum
         </Button>
         <Button
@@ -23,6 +26,7 @@ const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
           isActive={network === "polygon"}
           className="-ml-px rounded-none rounded-r-md"
         >
+          <PolygonIcon />
           Polygon
         </Button>
       </span>
