@@ -7,6 +7,7 @@ import { Button } from "app/components/Button";
 import EthereumIcon from "app/icons/EthereumIcon";
 import PolygonIcon from "app/icons/PolygonIcon";
 import Pagination from "app/[address]/components/Pagination";
+import EmptyState from "app/[address]/components/EmptyState";
 
 const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
   const [network, setNetwork] = useState(NETWORKS.ethereum.name);
@@ -31,7 +32,11 @@ const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
           Polygon
         </Button>
       </span>
-      <Table transactions={transactions[network]} network={network} />
+      {transactions[network]?.length ? (
+        <Table transactions={transactions[network]} network={network} />
+      ) : (
+        <EmptyState />
+      )}
       <Pagination network={network} />
     </div>
   );
