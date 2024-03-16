@@ -60,7 +60,7 @@ const Table = ({
           const timestamp = info.getValue();
           const date = fromUnixTime(parseInt(timestamp));
           const value = formatDistanceToNow(date);
-          return value;
+          return `${value} ago`;
         },
         sortingFn: (rowA, rowB) => {
           return (
