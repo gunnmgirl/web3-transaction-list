@@ -1,6 +1,7 @@
 "use client";
-import { Hash } from "viem";
+import { Hash, formatEther } from "viem";
 import Link from "next/link";
+import BigNumber from "bignumber.js";
 import { useBlock, useTransaction, useTransactionReceipt } from "wagmi";
 import { mainnet, polygon } from "wagmi/chains";
 import Header from "app/components/Header";
@@ -15,8 +16,10 @@ const Page = ({
   searchParams: { network: string };
 }) => {
   const linkColor = `text-[${NETWORKS[searchParams.network].color}]`;
+  const bigIntZero = 0 as unknown as bigint;
   const chainId =
     searchParams.network === NETWORKS.ethereum.name ? mainnet.id : polygon.id;
+  const currency = NETWORKS[searchParams.network].currency;
   const transaction = useTransaction({
     hash: params.hash,
     chainId,
@@ -26,6 +29,16 @@ const Page = ({
     chainId,
   });
   const block = useBlock({ blockHash: transaction.data?.blockHash, chainId });
+  const value = new BigNumber(
+    formatEther(transaction.data?.value || bigIntZero)
+  );
+  const gasUsed = new BigNumber(
+    formatEther(transaction.data?.gas || bigIntZero)
+  );
+  const gasPrice = new BigNumber(
+    formatEther(transaction.data?.gasPrice || bigIntZero)
+  );
+  const transactionFee = gasUsed.multipliedBy(gasPrice);
 
   return (
     <div>
@@ -73,9 +86,9 @@ const Page = ({
             <p>Gas Price</p>
           </div>
           <div>
-            <p>{transaction.data?.value.toString()}</p>
-            <p>{transaction.data?.gas.toString()}</p>
-            <p>{transaction.data?.gasPrice?.toString()}</p>
+            <p>{`${value.toFixed(16)} ${currency}`}</p>
+            <p>{`${transactionFee.toFixed(16)} ${currency}`}</p>
+            <p>{`${gasPrice.toFixed(16)} ${currency}`}</p>
           </div>
         </div>
       </div>
