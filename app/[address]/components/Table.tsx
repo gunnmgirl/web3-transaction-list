@@ -62,7 +62,11 @@ const Table = ({
           const value = formatDistanceToNow(date);
           return value;
         },
-        enableSorting: false,
+        sortingFn: (rowA, rowB) => {
+          return (
+            Number(rowA.original.timeStamp) - Number(rowB.original.timeStamp)
+          );
+        },
       }),
       columnHelper.accessor("from", {
         id: "from",
@@ -105,7 +109,9 @@ const Table = ({
               : NETWORKS.polygon.currency
           }`;
         },
-        enableSorting: false,
+        sortingFn: (rowA, rowB) => {
+          return Number(rowA.original.value) - Number(rowB.original.value);
+        },
       }),
       columnHelper.accessor("gasPrice", {
         id: "gasPrice",

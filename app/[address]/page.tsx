@@ -1,5 +1,4 @@
 import { Address } from "viem";
-import Pagination from "app/[address]/components/Pagination";
 import Transactions from "app/[address]/components/Transactions";
 import Header from "app/components/Header";
 import { getNetworkApiParams } from "app/helpers";
@@ -9,7 +8,7 @@ import { Transaction } from "app/types";
 const getApiUrl = (address: string, network: string, page: string | number) => {
   const { apiBaseUrl, apiKey, sampleAddress } = getNetworkApiParams(network);
   const addressParam = address || sampleAddress;
-  const actions = `module=account&action=txlist&page=${page}&offset=${10}`;
+  const actions = `module=account&action=txlist&page=${page}&offset=${20}`;
 
   return `${apiBaseUrl}?${actions}&address=${addressParam}&apikey=${apiKey}`;
 };
@@ -65,7 +64,6 @@ const Page = async ({
       <div className="p-4">
         <h1 className="text-lg mb-2">Transactions</h1>
         <Transactions transactions={{ ethereum, polygon }} />
-        <Pagination />
       </div>
     </div>
   );
