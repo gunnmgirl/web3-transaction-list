@@ -1,6 +1,9 @@
 "use client";
 import React, { useMemo } from "react";
 import Link from "next/link";
+import { formatEther } from "viem";
+import BigNumber from "bignumber.js";
+import { formatDistanceToNow, fromUnixTime } from "date-fns";
 import {
   createColumnHelper,
   flexRender,
@@ -11,8 +14,6 @@ import {
 import { NETWORKS } from "app/constants";
 import { Transaction } from "app/types";
 import { formatHash } from "app/helpers";
-import { formatEther } from "viem";
-import BigNumber from "bignumber.js";
 
 const columnHelper = createColumnHelper<Transaction>();
 
@@ -56,7 +57,10 @@ const Table = ({
         id: "timeStamp",
         header: () => "Age",
         cell: (info) => {
-          return info.renderValue();
+          const timestamp = info.getValue();
+          const date = fromUnixTime(parseInt(timestamp));
+          const value = formatDistanceToNow(date);
+          return value;
         },
         enableSorting: false,
       }),
@@ -105,9 +109,14 @@ const Table = ({
       }),
       columnHelper.accessor("gasPrice", {
         id: "gasPrice",
-        header: () => "Gas Price",
+        header: () => "Transaction Fee",
         cell: (info) => {
-          return info.renderValue();
+          const bigIntZero = 0 as unknown as bigint;
+          const gasUsed =
+            (info.row.original?.gasUsed as unknown as bigint) || bigIntZero;
+          const gasPrice = (info.getValue() as unknown as bigint) || bigIntZero;
+          const transactionFee = new BigNumber(formatEther(gasUsed * gasPrice));
+          return transactionFee.toFixed(6);
         },
         enableSorting: false,
       }),

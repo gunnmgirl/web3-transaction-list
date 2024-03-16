@@ -1,7 +1,6 @@
 "use client";
 import { Hash, formatEther } from "viem";
 import Link from "next/link";
-import BigNumber from "bignumber.js";
 import { useBlock, useTransaction, useTransactionReceipt } from "wagmi";
 import { mainnet, polygon } from "wagmi/chains";
 import Header from "app/components/Header";
@@ -37,16 +36,11 @@ const Page = ({
     chainId,
   });
   const block = useBlock({ blockHash: transaction.data?.blockHash, chainId });
-  const value = new BigNumber(
-    formatEther(transaction.data?.value || bigIntZero)
-  );
-  const gasUsed = new BigNumber(
-    formatEther(transaction.data?.gas || bigIntZero)
-  );
-  const gasPrice = new BigNumber(
-    formatEther(transaction.data?.gasPrice || bigIntZero)
-  );
-  const transactionFee = gasUsed.multipliedBy(gasPrice);
+  const value = formatEther(transaction.data?.value || bigIntZero);
+  const gasUsed = (receipt.data?.gasUsed as unknown as bigint) || bigIntZero;
+  const gasPrice =
+    (transaction.data?.gasPrice as unknown as bigint) || bigIntZero;
+  const transactionFee = formatEther(gasUsed * gasPrice);
 
   return (
     <div>
@@ -58,7 +52,7 @@ const Page = ({
             <p>Hash:</p>
             <p>Status:</p>
             <p>Block:</p>
-            <p>Timestamp</p>
+            <p>Timestamp:</p>
           </div>
           <div>
             <Link
@@ -80,8 +74,8 @@ const Page = ({
         <Divider className="my-4" />
         <div className="grid grid-cols-[200px,1fr]">
           <div>
-            <p>From</p>
-            <p>To</p>
+            <p>From:</p>
+            <p>To:</p>
           </div>
           <div>
             <Link href={`/${transaction.data?.from}`} className={linkColor}>
@@ -95,14 +89,14 @@ const Page = ({
         <Divider className="my-4" />
         <div className="grid grid-cols-[200px,1fr]">
           <div>
-            <p>Value</p>
-            <p>Transaction Fee</p>
-            <p>Gas Price</p>
+            <p>Value:</p>
+            <p>Transaction Fee:</p>
+            <p>Gas Price:</p>
           </div>
           <div>
-            <p>{`${value.toFixed(16)} ${currency}`}</p>
-            <p>{`${transactionFee.toFixed(16)} ${currency}`}</p>
-            <p>{`${gasPrice.toFixed(16)} ${currency}`}</p>
+            <p>{`${value} ${currency}`}</p>
+            <p>{`${transactionFee} ${currency}`}</p>
+            <p>{`${formatEther(gasPrice)} ${currency}`}</p>
           </div>
         </div>
       </div>
