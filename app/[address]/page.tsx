@@ -62,7 +62,7 @@ const Page = async ({
   return (
     <div>
       <Header />
-      <div className="p-2">
+      <div className="p-4">
         <h1 className="text-lg mb-2">Transactions</h1>
         <Transactions transactions={{ ethereum, polygon }} />
         <Pagination />

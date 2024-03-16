@@ -22,7 +22,10 @@ const AddressForm = ({
   };
 
   return (
-    <form onSubmit={handleOnSubmit} className="flex items-end justify-center">
+    <form
+      onSubmit={handleOnSubmit}
+      className="flex items-end justify-center mt-2 md:mt-0"
+    >
       <Input
         label=""
         value={value}

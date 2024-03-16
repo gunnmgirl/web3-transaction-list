@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { InputHTMLAttributes, useId } from "react";
 
 type Props = {
@@ -17,7 +18,7 @@ const Input = (props: Props) => {
       >
         {label}
       </label>
-      <div className="relative mt-2 rounded-md shadow-sm">
+      <div className={clsx(`relative rounded-md shadow-sm`, label && "mt-2")}>
         <input
           id={inputId}
           type="text"

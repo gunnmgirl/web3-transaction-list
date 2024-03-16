@@ -16,7 +16,7 @@ const Header = () => {
   ) as Hash;
 
   return (
-    <header className="flex justify-between items-center p-2">
+    <header className="flex flex-col justify-between items-center p-4 md:flex-row">
       {address ? (
         <Balance address={address} />
       ) : (
