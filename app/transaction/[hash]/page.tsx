@@ -19,14 +19,15 @@ const Page = ({
   searchParams: { network: string };
 }) => {
   const { network } = searchParams;
-  const linkColor = `text-[${NETWORKS[network].color}]`;
+  const linkColor = network
+    ? `text-[${NETWORKS[network].color}]`
+    : `text-[${NETWORKS.polygon.color}]`;
   const baseUrl =
     network === NETWORKS.ethereum.name
       ? ETHERSCAN_BASE_URL
       : POLYGONSCAN_BASE_URL;
-  const bigIntZero = 0 as unknown as bigint;
   const chainId = network === NETWORKS.ethereum.name ? mainnet.id : polygon.id;
-  const currency = NETWORKS[network].currency;
+  const currency = NETWORKS[network]?.currency || "";
   const transaction = useTransaction({
     hash: params.hash,
     chainId,
@@ -36,11 +37,12 @@ const Page = ({
     chainId,
   });
   const block = useBlock({ blockHash: transaction.data?.blockHash, chainId });
-  const value = formatEther(transaction.data?.value || bigIntZero);
-  const gasUsed = (receipt.data?.gasUsed as unknown as bigint) || bigIntZero;
-  const gasPrice =
-    (transaction.data?.gasPrice as unknown as bigint) || bigIntZero;
-  const transactionFee = formatEther(gasUsed * gasPrice);
+  const value = formatEther(
+    (transaction.data?.value || 0) as unknown as bigint
+  );
+  const gasUsed = Number(receipt.data?.gasUsed) || 0;
+  const gasPrice = Number(transaction.data?.gasPrice) || 0;
+  const transactionFee = gasUsed * gasPrice;
 
   return (
     <div>
@@ -95,8 +97,10 @@ const Page = ({
           </div>
           <div>
             <p>{`${value} ${currency}`}</p>
-            <p>{`${transactionFee} ${currency}`}</p>
-            <p>{`${formatEther(gasPrice)} ${currency}`}</p>
+            <p>{`${formatEther(
+              transactionFee as unknown as bigint
+            )} ${currency}`}</p>
+            <p>{`${formatEther(gasPrice as unknown as bigint)} ${currency}`}</p>
           </div>
         </div>
       </div>

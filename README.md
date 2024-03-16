@@ -1,15 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Listing Ethereum and Polygon transactions!
 
-## Getting Started
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-First, run the development server:
+Browse Ethereum and Polygon transactions [here](https://web3-transaction-list.vercel.app/).
 
-```bash
-npm run dev
-# or
+## Getting started
+
+```
+git clone https://github.com/gunnmgirl/web3-transaction-list
+cd web3-transaction-list
+yarn install
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```

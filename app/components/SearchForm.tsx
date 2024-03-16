@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Input from "app/components/Input";
 import { Button } from "app/components/Button";
 import SearchIcon from "app/icons/SearchIcon";
@@ -16,10 +16,15 @@ const AddressForm = ({
   const placeholder =
     inputType === "address" ? "Search by address" : "Search by hash";
   const { push } = useRouter();
+  const searchParams = useSearchParams();
 
   const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    inputType === "address" ? push(`/${value}`) : push(`/transaction/${value}`);
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    inputType === "address"
+      ? push(`/${value}`)
+      : push(`/transaction/${value}?${params.toString()}`);
   };
 
   return (
