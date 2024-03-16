@@ -19,7 +19,7 @@ const Page = ({ params }: { params: { hash: Hash } }) => {
     <div>
       <Header />
       <div className="p-2">
-        <h1 className="text-lg">Transaction Details</h1>
+        <h1 className="text-lg mb-2">Transaction Details</h1>
         <div className="grid grid-cols-[200px_1fr]">
           <div>
             <p>Hash:</p>

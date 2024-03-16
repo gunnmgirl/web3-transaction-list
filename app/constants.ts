@@ -1,6 +1,8 @@
-export const NETWORKS: { [key: string]: { currency: string; name: string } } = {
-  ethereum: { currency: "ETH", name: "ethereum" },
-  polygon: { currency: "MATIC", name: "polygon" },
+export const NETWORKS: {
+  [key: string]: { currency: string; name: string; color: string };
+} = {
+  ethereum: { currency: "ETH", name: "ethereum", color: "#6ab5db" },
+  polygon: { currency: "MATIC", name: "polygon", color: "#884bf2" },
 };
 export const ETHERSCAN_BASE_URL = " https://api.etherscan.io/api";
 export const ETHEREUM_SAMPLE_ADDRESS =

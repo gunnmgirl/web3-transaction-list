@@ -37,7 +37,7 @@ const getData = async (
 };
 
 const Page = async ({
-  searchParams = { page: "1" },
+  searchParams,
   params,
 }: {
   searchParams: {
@@ -45,7 +45,7 @@ const Page = async ({
   };
   params: { address: Address };
 }) => {
-  const page = searchParams.page;
+  const page = searchParams?.page || "1";
   const address = params?.address || ETHEREUM_SAMPLE_ADDRESS;
 
   const ethereum: Transaction[] = await getData(
@@ -60,10 +60,13 @@ const Page = async ({
   );
 
   return (
-    <div className="h-lvh">
+    <div>
       <Header />
-      <Transactions transactions={{ ethereum, polygon }} />
-      <Pagination />
+      <div className="p-2">
+        <h1 className="text-lg mb-2">Transactions</h1>
+        <Transactions transactions={{ ethereum, polygon }} />
+        <Pagination />
+      </div>
     </div>
   );
 };

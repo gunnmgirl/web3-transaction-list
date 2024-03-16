@@ -9,7 +9,7 @@ const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
   const [network, setNetwork] = useState(NETWORKS.ethereum.name);
 
   return (
-    <div className="p-2">
+    <div>
       <span className="isolate inline-flex">
         <Button
           onClick={() => setNetwork("ethereum")}
@@ -18,7 +18,6 @@ const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
         >
           Ethereum
         </Button>
-
         <Button
           onClick={() => setNetwork("polygon")}
           isActive={network === "polygon"}
