@@ -2,6 +2,7 @@
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
+This site is deployed using Vercel.
 Browse Ethereum and Polygon transactions [here](https://web3-transaction-list.vercel.app/).
 
 ## Getting started
