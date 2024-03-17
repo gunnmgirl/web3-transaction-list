@@ -69,9 +69,9 @@ const Page = async ({
   );
 
   return (
-    <div>
+    <div className="h-screen gap-1 grid grid-rows-[auto,1fr]">
       <Header />
-      <div className="p-4">
+      <div className="p-4 grid min-h-[400px] grid-rows-[auto,auto,1fr,auto]">
         <h1 className="text-lg mb-2">Transactions</h1>
         <Transactions transactions={{ ethereum, polygon }} />
       </div>

@@ -13,7 +13,7 @@ const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
   const [network, setNetwork] = useState(NETWORKS.ethereum.name);
 
   return (
-    <div>
+    <>
       <span className="isolate inline-flex">
         <Button
           onClick={() => setNetwork("ethereum")}
@@ -38,7 +38,7 @@ const Transactions = ({ transactions }: { transactions: TransactionsType }) => {
         <EmptyState />
       )}
       <Pagination network={network} />
-    </div>
+    </>
   );
 };
 

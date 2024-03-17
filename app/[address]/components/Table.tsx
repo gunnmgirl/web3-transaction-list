@@ -138,7 +138,7 @@ const Table = ({
   });
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-auto">
       <table className="min-w-full divide-y divide-gray-700">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
