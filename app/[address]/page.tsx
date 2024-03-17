@@ -5,10 +5,15 @@ import { getNetworkApiParams } from "app/helpers";
 import { ETHEREUM_SAMPLE_ADDRESS, NETWORKS } from "app/constants";
 import { Transaction } from "app/types";
 
-const getApiUrl = (address: string, network: string, page: string | number) => {
+const getApiUrl = (
+  address: string,
+  network: string,
+  page: string | number,
+  offset: string
+) => {
   const { apiBaseUrl, apiKey, sampleAddress } = getNetworkApiParams(network);
   const addressParam = address || sampleAddress;
-  const actions = `module=account&action=txlist&page=${page}&offset=${20}`;
+  const actions = `module=account&action=txlist&page=${page}&offset=${offset}`;
 
   return `${apiBaseUrl}?${actions}&address=${addressParam}&apikey=${apiKey}`;
 };
@@ -16,10 +21,11 @@ const getApiUrl = (address: string, network: string, page: string | number) => {
 const getData = async (
   address: string,
   network: string,
-  page: string | number
+  page: string | number,
+  offset: string
 ) => {
   try {
-    const apiUrl = getApiUrl(address, network, page);
+    const apiUrl = getApiUrl(address, network, page, offset);
     const res = await fetch(apiUrl);
 
     if (!res.ok) {
@@ -41,21 +47,25 @@ const Page = async ({
 }: {
   searchParams: {
     page: string;
+    offset: string;
   };
   params: { address: Address };
 }) => {
   const page = searchParams?.page || "1";
+  const offset = searchParams?.offset || "20";
   const address = params?.address || ETHEREUM_SAMPLE_ADDRESS;
 
   const ethereum: Transaction[] = await getData(
     address,
     NETWORKS.ethereum.name,
-    page
+    page,
+    offset
   );
   const polygon: Transaction[] = await getData(
     address,
     NETWORKS.polygon.name,
-    page
+    page,
+    offset
   );
 
   return (
