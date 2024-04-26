@@ -34,7 +34,7 @@ const Pagination = ({ network }: { network: string }) => {
     address: address as Address,
     chainId: network === NETWORKS.ethereum.name ? mainnet.id : polygon.id,
   });
-  const totalPages = result.data || 1;
+  const totalPages = result?.data ? Math.round(result.data / offset) : 1;
 
   const createUrl = (paramName: string, paramValue: string | number) => {
     const params = new URLSearchParams(searchParams);
