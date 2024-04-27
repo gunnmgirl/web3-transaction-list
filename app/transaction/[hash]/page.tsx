@@ -56,7 +56,7 @@ const Page = ({
             <p>Block:</p>
             <p>Timestamp:</p>
           </div>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden max-w-fit">
             <Link
               href={`${baseUrl}/tx/${transaction.data?.hash}`}
               rel="noopener noreferrer"
@@ -79,7 +79,7 @@ const Page = ({
             <p>From:</p>
             <p>To:</p>
           </div>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden max-w-fit">
             <Link href={`/${transaction.data?.from}`} className={linkColor}>
               <p className="truncate">{transaction.data?.hash}</p>
             </Link>
@@ -95,7 +95,7 @@ const Page = ({
             <p>Transaction Fee:</p>
             <p>Gas Price:</p>
           </div>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden max-w-fit">
             <p>{`${value} ${currency}`}</p>
             <p className="truncate">{`${formatEther(
               transactionFee as unknown as bigint
