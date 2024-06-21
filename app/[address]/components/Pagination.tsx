@@ -60,7 +60,9 @@ const Pagination = ({ network }: { network: string }) => {
       />
       <div className="flex items-center gap-1">
         <Link href={createUrl("page", 1)}>
-          <Button className="h-7">First</Button>
+          <Button disabled={currentPage === 1} className="h-7">
+            First
+          </Button>
         </Link>
         <Link href={createUrl("page", currentPage - 1)}>
           <Button

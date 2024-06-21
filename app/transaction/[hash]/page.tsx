@@ -38,7 +38,7 @@ const Page = ({
   });
   const block = useBlock({ blockHash: transaction.data?.blockHash, chainId });
   const value = formatEther(
-    (transaction.data?.value || 0) as unknown as bigint
+    (transaction.data?.value ?? 0) as unknown as bigint
   );
   const gasUsed = Number(receipt.data?.gasUsed) || 0;
   const gasPrice = Number(transaction.data?.gasPrice) || 0;
